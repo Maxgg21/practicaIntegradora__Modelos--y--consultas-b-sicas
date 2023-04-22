@@ -1,4 +1,4 @@
-const {Movie } = require('../database/models');
+const { Movie, Sequelize } = require('../database/models');
 
 
 const moviesController = {
@@ -18,10 +18,33 @@ const moviesController = {
         })
     },
     new : (req, res) => {
-
+        Movie.findAll({
+            order : [
+                ['release_date', 'DESC'],
+            ],
+            limit: 5,
+        }, 
+        {
+            include : [{association: 'genre'}, {association: 'actors'}] 
+        })
+        .then(movies => {
+            return res.render('newestMovies', {movies});
+        })
     },
     recomended : (req, res) => {
-
+        Movie.findAll({
+            where: {
+                rating : {[Sequelize.Op.gte] : 8}
+            },
+            order: [
+                ['rating', 'DESC']
+            ],
+        }, {
+            include : [{association: 'genre'}] 
+        })
+        .then(movies => {
+            return res.render('recommendedMovies', {movies})
+        });
     },
 };
 

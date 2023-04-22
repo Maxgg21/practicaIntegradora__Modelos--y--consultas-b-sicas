@@ -22,7 +22,7 @@
         <ul>
             <% genre.movies.forEach(movie => { %>
                 <li>
-                    <%- ` ${movie.title} `  %>
+                    <a href="/movies/detail/<%= movie.id %>"><%= movie.title %></a>
                 </li>
             <% }) %>
         </ul>
