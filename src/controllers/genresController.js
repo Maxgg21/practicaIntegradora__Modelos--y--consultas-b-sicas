@@ -5,7 +5,7 @@ const genresController = {
         Genre.findAll()
         .then( (genres) => {
             //return res.send(genre),
-            return res.render('genresList', {genres})
+           return res.render('genresList', {genres})
         });
     },
     
@@ -19,4 +19,4 @@ const genresController = {
     },
 };
 
-module.exports = genresController;
+module.exports = genresController

@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-    let alias = 'Genre';
+    let alias = 'Actor';
 
     let cols = {
         id: {
@@ -33,6 +33,17 @@ module.exports = (sequelize, dataTypes) => {
     };
 
     const ACTOR = sequelize.define(alias, cols, config);
+
+    ACTOR.association = (models) => {
+        ACTOR.belongsToMany(models.Movie, {
+            as: 'movies',
+            through : 'actor_movie',
+            foreignKey: 'actor_id',
+            otherKey: 'movie_id',
+            timestamps : false,
+        })
+    }
+
 
     return ACTOR;
 }
